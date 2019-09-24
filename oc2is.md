@@ -85,62 +85,7 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
     -   [2.1 OpenC2 Command](#21-openc2-command)
     -   [2.2 OpenC2 Response](#22-openc2-response)
 -   [3 OpenC2 Language Definition](#3-openc2-language-definition)
-    -   [3.1 Base Components and
-        Structures](#31-base-components-and-structures)
-        -   [3.1.1 Data Types](#311-data-types)
-        -   [3.1.2 Semantic Value Constraints](#312-semantic-value-constraints)
-        -   [3.1.3 Multiplicity](#313-multiplicity)
-        -   [3.1.4 Extensions](#314-extensions)
-        -   [3.1.5 Serialization](#315-serialization)
-    -   [3.2 Message](#32-message)
-    -   [3.3 Content](#33-content)
-        -   [3.3.1 OpenC2 Command](#331-openc2-command)
-            -   [3.3.1.1 Action](#3311-action)
-            -   [3.3.1.2 Target](#3312-target)
-            -   [3.3.1.3 Actuator](#3313-actuator)
-            -   [3.3.1.4 Command Arguments](#3314-command-arguments)
-        -   [3.3.2 OpenC2 Response](#332-openc2-response)
-            -   [3.3.2.1 Response Status Code](#3321-response-status-code)
-            -   [3.3.2.2 Response Results](#3322-response-results)
-    -   [3.4 Type Definitions](#34-type-definitions)
-        -   [3.4.1 Target Types](#341-target-types)
-            -   [3.4.1.1 Artifact](#3411-artifact)
-            -   [3.4.1.2 Device](#3412-device)
-            -   [3.4.1.3 Domain Name](#3413-domain-name)
-            -   [3.4.1.4 Email Address](#3414-email-address)
-            -   [3.4.1.5 Features](#3415-features)
-            -   [3.4.1.6 File](#3416-file)
-            -   [3.4.1.7 Internationalized Domain Name](#3417-internationalized-domain-name)
-            -   [3.4.1.8 Internationalized Email Address](#3418-internationalized-email-address)
-            -   [3.4.1.9 IPv4 Address Range](#3419-ipv4-address-range)
-            -   [3.4.1.10 IPv4 Connection](#34110-ipv4-connection)
-            -   [3.4.1.11 IPv6 Address Range](#34111-ipv6-address-range)
-            -   [3.4.1.12 IPv6 Connection](#34112-ipv6-connection)
-            -   [3.4.1.13 IRI](#34113-iri)
-            -   [3.4.1.14 MAC Address](#34114-mac-address)
-            -   [3.4.1.15 Process](#34115-process)
-            -   [3.4.1.16 Properties](#34116-properties)
-            -   [3.4.1.17 URI](#34117-uri)
-        -   [3.4.2 Data Types](#342-data-types)
-            -   [3.4.2.1 Action-Targets](#3421-action-targets)
-            -   [3.4.2.2 Date-Time](#3422-date-time)
-            -   [3.4.2.3 Duration](#3423-duration)
-            -   [3.4.2.4 Feature](#3424-feature)
-            -   [3.4.2.5 Hashes](#3425-hashes)
-            -   [3.4.2.6 Hostname](#3426-hostname)
-            -   [3.4.2.7 Internationalized Hostname](#3427-internationalized-hostname)
-            -   [3.4.2.8 IPv4 Address](#3428-ipv4-address)
-            -   [3.4.2.9 IPv6 Address](#3429-ipv6-address)
-            -   [3.4.2.10 L4 Protocol](#34210-l4-protocol)
-            -   [3.4.2.11 Message-Type](#34211-message-type)
-            -   [3.4.2.12 Namespace Identifier](#34212-namespace-identifier)
-            -   [3.4.2.13 Payload](#34213-payload)
-            -   [3.4.2.14 Port](#34214-port)
-            -   [3.4.2.15 Response-Type](#34215-response-type)
-            -   [3.4.2.16 Version](#34216-version)
 -   [4 Mandatory Commands/Responses](#4-mandatory-commandsresponses)
-    -   [4.1 Implementation of 'query features' Command](#41-implementation-of-query-features-command)
-    -   [4.2 Examples of 'query features' Commands and Responses](#42-examples-of-query-features-commands-and-responses)
 -   [5 Conformance](#5-conformance)
     -   [5.1 Conformance Clause 1: Command](#51-conformance-clause-1-command)
     -   [5.2 Conformance Clause 2: Response](#52-conformance-clause-2-response)
@@ -175,8 +120,12 @@ _This section is normative._
 * **Action**: The task or activity to be performed (e.g., 'deny').
 * **Actuator**: The function performed by the Consumer that executes the Command (e.g., 'Stateless Packet Filtering').
 * **Argument**: A property of a Command that provides additional information on how to perform the Command, such as date/time, periodicity, duration, etc.
+* **Exclusive-OpenC2 Interface**: A device interface conformant with section 5.X of this Specification, ie that only contains only OpenC2 with no extensions
+* **Extended-OpenC2 Interface**: A device interface conformant with section 5.XX of this Specification, ie that only contains only OpenC2 but includes valid OpenC2 extensions as defined in Section XX of this document
 * **Command**: A Message defined by an Action-Target pair that is sent from a Producer and received by a Consumer.
-* **Consumer**: A managed device / application that receives Commands. Note that a single device / application can have both Consumer and Producer capabilities.
+* **Consumer**: A device that receives Commands. Note that a single device can have both Consumer and Producer capabilities.
+* **Device**: steal def from somewhere so include both physical and virtual devices
+* **Interface**: steal def from somewhere
 * **Message**: A content- and transport-independent set of elements conveyed between Consumers and Producers.
 * **Producer**: A manager application that sends Commands.
 * **Response**: A Message from a Consumer to a Producer acknowledging a Command or returning the requested resources or status to a previously received Command.
@@ -260,7 +209,7 @@ M. J. Herring, K. D. Willett, "Active Cyber Defense: A Vision for Real-Time Cybe
 ### 1.5.1 Naming Conventions
 * [[RFC2119]](#rfc2119)/[[RFC8174]](#rfc8174) key words (see [Section 1.2](#12-terminology)) are in all uppercase.
 * All property names and literals are in lowercase, except when referencing canonical names defined in another standard (e.g., literal values from an IANA registry).
-* Words in property names are separated with an underscore (_), while words in string enumerations and type names are separated with a hyphen (-).
+* Words in property names are separated with an underscore ( _ ), while words in string enumerations and type names are separated with a hyphen ( - ).
 * The term "hyphen" used here refers to the ASCII hyphen or minus character, which in Unicode is "hyphen-minus", U+002D.
 
 ### 1.5.2 Font Colors and Style
@@ -296,9 +245,11 @@ In general, there are two types of participants involved in the exchange of Open
 **Figure 1-1. OpenC2 Message Exchange**
 
 OpenC2 is a suite of specifications for Producers and Consumers to command and execute cyber defense functions. These specifications include the OpenC2 Language Specification, Actuator Profiles, and Transfer Specifications. The OpenC2 Language Specification and Actuator Profile specifications focus on the language content and meaning at the Producer and Consumer of the Command and Response while the transfer specifications focus on the protocols for their exchange.
-* The **OpenC2 Language Specification** (this document) provides the semantics for the essential elements of the language, the structure for Commands and Responses, and the schema that defines the proper syntax for the language elements that represents the Command or Response.
+* The **OpenC2 Language Specification**  provides the semantics for the essential elements of the language, the structure for Commands and Responses, and the schema that defines the proper syntax for the language elements that represents the Command or Response.
 * **OpenC2 Actuator Profiles** specify the subset of the OpenC2 language relevant in the context of specific Actuator functions. Cyber defense components, devices, systems and/or instances may (in fact are likely to) implement multiple Actuator profiles. Actuator profiles extend the language by defining Specifiers that identify the Actuator to the required level of precision. Actuator Profiles may define Command Arguments and Targets that are relevant and/or unique to those Actuator functions.
 * **OpenC2 Transfer Specifications** utilize existing protocols and standards to implement OpenC2 in specific environments. These standards are used for communications and security functions beyond the scope of the language, such as message transfer encoding, authentication, and end-to-end transport of OpenC2 Messages.
+* **OpenC2 Interface Specifications** (this document) specifies how the OpenC2 language/actuator-profile/transport specifications define an OpenC2 interface that can be used for vendor-agnostic interworking between devices.
+
 
 The OpenC2 Language Specification defines a language used to compose Messages for command and control of cyber defense systems and components. A Message consists of a header and a payload (_defined_ as a Message body in the OpenC2 Language Specification Version 1.0 and _specified_ in one or more Actuator profiles).
 
@@ -334,6 +285,8 @@ The components of a Command are an Action (what is to be done), a Target (what i
 The components of a Response are a numerical status code, an optional status text string, and optional results. The format of the results, if included, depend on the type of Response being transferred.
 
 ## 1.7 Goal
+specifies how the OpenC2 language/actuator-profile/transport specifications define an OpenC2 interface that can be used for interworking between devices.
+
 The goal of the OpenC2 Language Specification is to provide a language for interoperating between functional elements of cyber defense systems. This language used in conjunction with OpenC2 Actuator Profiles and OpenC2 Transfer Specifications allows for vendor-agnostic cybertime response to attacks.
 
 The Integrated Adaptive Cyber Defense (IACD) framework defines a collection of activities, based on the traditional OODA (Observe–Orient–Decide–Act) Loop [[IACD]](#iacd):
@@ -351,7 +304,7 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 * **Extensible:**  While OpenC2 defines a core set of Actions and Targets for cyber defense, the language is expected to evolve with cyber defense technologies, and permits extensions to accommodate new cyber defense technologies.
 
 ## 1.8 Purpose and Scope
-The OpenC2 Language Specification defines the set of components to assemble a complete command and control Message and provides a framework so that the language can be extended. To achieve this purpose, the scope of this specification includes:
+The OpenC2 Interface Specification defines the set of components to assemble a complete command and control Message and provides a framework so that the language can be extended. To achieve this purpose, the scope of this specification includes:
 
 1. the set of Actions and options that may be used in Commands
 2. the set of Targets and Target Specifiers
@@ -416,38 +369,34 @@ _The content in this section is normative, except where it is marked non-normati
 
 _This content in this section is normative._
 
-### 5.1 Conformance Clause 1: Command
+### 5.1 Conformance Clause 1: Exclusive-OpenC2 Interface
 
-A conformant Command
+An Exclusive-OpenC2 Interface is conformant if all of the following conditions are met:
 
-* 5.1-1 MUST be structured in accordance with [Section 3.3.1](#331-openc2-command).
-* 5.1-2 MUST include exactly one `action` property defined in accordance with [Section 3.3.1.1](#3311-action).
-* 5.1-3 MUST include exactly one `target` property defined in accordance with [Section 3.3.1.2](#3312-target) or exactly one imported `target` property defined in accordance with [Section 3.1.4](#314-extensions).
-* 5.1-4 MUST include zero or one `actuator` property defined in accordance with [Section 3.3.1.3](#3313-actuator) or zero or one imported `actuator` property defined in accordance with [Section 3.1.4](#314-extensions).
-* 5.1-5 MUST include zero or one `args` property defined in accordance with [Section 3.3.1.4](#3314-command-arguments) or zero or one imported `args` property defined in accordance with [Section 3.1.4](#314-extensions).
+all commands and responses over the interface MUST be conformant with Section 5 of Language Spec
 
-### 5.2 Conformance Clause 2: Response
+all commands and responses over the interface MUST be conformant with one or more Actuator Profiles defined in accordance with [Section X](fill in link to  (earlier section of this doc)
 
-A conformant Response
+all transport over the interface MUST be conformant with one or more of the transport specifications defined in [Section X](fill in link to  (earlier section of this doc)
 
-* 5.2-1 MUST be structured in accordance with [Section 3.3.2](#332-openc2-response).
-* 5.2-2 MUST include exactly one `status` property defined in accordance with [Section 3.3.2.1](#3321-response-status-code).
+The commands and responses MUST NOT contain OpenC3 Language extensions in Section X of Language Specification. For example (example extension per section X of Language Spec) would be non-compliant. For example the capability to switch to other than JSON serialization would be non-compliant.
 
-## 5.3 Conformance Clause 3: Producer
+The commands and responses MUST NOT contain any functionality other that defined in Actuator Profiles defined in accordance with [Section X](fill in link to  (earlier section of this doc). For example, custom actuator profiles would be non-compliant for an Exclusive-OpenC2 Interface (but could be compliant for an Extended-OpenC2 interface).
 
-A conformant Producer
+### 5.2 Conformance Clause 2: Extended-OpenC2 Interface
+An Extended-OpenC2 Interface is conformant if all of the following conditions are met:
 
-* 5.3-1 MUST issue Commands and process Responses in accordance with [Section 4](#4-mandatory-commandsresponses).
-* 5.3-2 MUST implement JSON serialization of generated Commands in accordance with [[RFC7493]](#rfc7493).
-* 5.3-3 MUST implement JSON serialization of received Responses in accordance with [[RFC7493]](#rfc7493).
+all commands over the interface MUST be conformant with Section 5 of Language Spec
 
-## 5.4 Conformance Clause 4: Consumer
+all responses over the interface MUST be conformant with Section 5 of Language Spec
 
-A conformant Consumer
+all commands and responses MUST be conformant with one or more Actuator or Custom Actuator Profiles defined in accordance with [Section X+1](fill in link to  (earlier section of this doc)
 
-* 5.4-1 MUST process Commands and issue Responses in accordance with [Section 4](#4-mandatory-commandsresponses).
-* 5.4-2 MUST implement JSON serialization of generated Responses in accordance with [[RFC7493]](#rfc7493).
-* 5.4-3 MUST implement JSON serialization of received Commands in accordance with [[RFC7493]](#rfc7493).
+all transport over the interface MUST be conformant with one or more of the transport specifications defined in [Section X](fill in link to  (earlier section of this doc)
+
+The commands and responses MAY contain OpenC3 Language extensions in Section X of Language Specification. For example (example extension per section X of Language Spec) could be compliant. For example the capability to switch to other than JSON serialization could be compliant.
+
+The commands and responses MAY contain functionality other that defined in Actuator Profiles defined in accordance with [Section X](fill in link to  (earlier section of this doc), buy that functionality MUST be specified in Custom Actuator Profiles in accordance with [Section X+1](fill in link to  (earlier section of this doc).
 
 -------
 
@@ -456,11 +405,42 @@ A conformant Consumer
 _The content in this section is non-normative._
 
 ## A.1 Example 1
+Exclusive-OpenC2 Interface
+slpf over https-api from orchestrator to actuator.
 
 ## A.2 Example 2
-
+Extended-OpenC2 Interface
 
 ## A.3 Example 3
+Future Exclusive-OpenC2 Interface with another transport
+
+pretend CoAP spec approved
+Note this interface is currently non-compliant with this spec
+
+## A.4 Example 4
+Future Exclusive-OpenC2 Interface with several actuator profiles
+pretend (pick several) AP's approved
+
+## A.5 Example 5
+Non conformant interface that still meets language, AP, transport but is noncomplicant with this spec due to proprietary vendor extensions
+
+## A.6 Example 6
+Non conformant interface because adds 'drop' action as alias to 'deny' action
+
+## A.7 Example 7
+Non conformant interface because allows mixed case action (e.g. Deny)
+
+## A.8 Example 8
+Non conformant interface because adds 'slpf' target extension even though target exists in language spec.
+
+## A.9 Example 9
+Future Exclusive-OpenC2 Interface with another transport
+pretend CACAO spec approved with OpenC2 as part of it, and STIX ....
+Note this interface is currently non-compliant with this spec
+
+## A.10 Example 10
+HAHA - noncompliant as exclusive, compliant as Extended
+
 
 -------
 
