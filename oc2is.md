@@ -375,11 +375,11 @@ An Exclusive-OpenC2 Interface is conformant if all of the following conditions a
 
 all commands and responses over the interface MUST be conformant with Section 5 of Language Spec
 
-all commands and responses over the interface MUST be conformant with one or more Actuator Profiles defined in accordance with [Section X](fill in link to  (earlier section of this doc)
+all commands and responses over the interface MUST be conformant with one or more Actuator Profiles defined in accordance with [Section X](fill in link to  (earlier section of this doc) - which lists AP's
 
-all transport over the interface MUST be conformant with one or more of the transport specifications defined in [Section X](fill in link to  (earlier section of this doc)
+all transport over the interface MUST be conformant with one or more of the transport specifications defined in [Section X](fill in link to  (earlier section of this doc) - which lists transport specs
 
-The commands and responses MUST NOT contain OpenC3 Language extensions in Section X of Language Specification. For example (example extension per section X of Language Spec) would be non-compliant. For example the capability to switch to other than JSON serialization would be non-compliant.
+The commands and responses MUST NOT contain OpenC2 Language extensions in Section X of Language Specification. For example (example extension per section X of Language Spec) would be non-compliant. For example the capability to switch to other than JSON serialization would be non-compliant.
 
 The commands and responses MUST NOT contain any functionality other that defined in Actuator Profiles defined in accordance with [Section X](fill in link to  (earlier section of this doc). For example, custom actuator profiles would be non-compliant for an Exclusive-OpenC2 Interface (but could be compliant for an Extended-OpenC2 interface).
 
